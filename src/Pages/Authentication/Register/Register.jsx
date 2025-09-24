@@ -2,8 +2,10 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import GoogleLogin from '../../../Components/Social login/GoogleLogin';
+import useAuth from '../../../Hooks/useAuth';
 
 const Register = () => {
+    const {createUser} = useAuth()
     const {
         register,
         handleSubmit,
@@ -11,8 +13,15 @@ const Register = () => {
         formState: { errors },
     } = useForm()
 
-    const onSubmit = (data) => {
+    const onSubmit =async (data) => {
         console.log(data);
+        try{
+            const result = await createUser(data.email,data.password)
+            console.log(result.user);
+        }catch(error){
+            console.log(error);
+        }
+        
     }
     return (
         <div>

@@ -4,6 +4,11 @@ import Home from "../Pages/Home/Home/Home";
 import AuthenticationLayout from "../Layouts/AuthenticationLayout";
 import Login from "../Pages/Authentication/Login/Login";
 import Register from "../Pages/Authentication/Register/Register";
+import ServiceMap from "../Pages/service/ServiceMap";
+import PrivateRoute from "./PrivateRoute";
+import SendParcel from "../Pages/Send Parcel/SendParcel";
+import DashBoardLayout from "../Layouts/DashBoardLayout";
+import MyParcel from "../Pages/Dashboard/my parcel/MyParcel";
 
 export const router = createBrowserRouter([
     {
@@ -13,21 +18,43 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 Component: Home
+            },
+            {
+                path: 'service',
+                Component: ServiceMap,
+                loader: () => fetch('./district.json')
+            },
+            {
+                path: 'sendParcel',
+                element: <PrivateRoute>
+                    <SendParcel></SendParcel>
+                </PrivateRoute>,
+                loader: ()=> fetch('./district.json')
             }
         ]
     },
     {
-        path:'/',
+        path: '/',
         Component: AuthenticationLayout,
-        children:[
+        children: [
             {
-                path:'login',
+                path: 'login',
                 Component: Login
             },
             {
-                path:'register',
+                path: 'register',
                 Component: Register
             },
+        ]
+    },
+    {
+        path:'/dashboard',
+        element: <PrivateRoute><DashBoardLayout></DashBoardLayout></PrivateRoute>,
+        children: [
+            {
+                path: 'myParcels',
+                element:<MyParcel></MyParcel>
+            }
         ]
     }
 ])
