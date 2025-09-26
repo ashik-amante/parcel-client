@@ -1,11 +1,14 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import GoogleLogin from '../../../Components/Social login/GoogleLogin';
 import useAuth from '../../../Hooks/useAuth';
 
 const Register = () => {
     const {createUser} = useAuth()
+    const location = useLocation()
+    const navigate = useNavigate()
+    const from = location.state?.from || '/'
     const {
         register,
         handleSubmit,
@@ -18,6 +21,7 @@ const Register = () => {
         try{
             const result = await createUser(data.email,data.password)
             console.log(result.user);
+            navigate(from)
         }catch(error){
             console.log(error);
         }

@@ -3,10 +3,12 @@ import useAuth from '../../../Hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router';
 
 const MyParcel = () => {
     const { user } = useAuth()
     const axiosSecure = useAxiosSecure()
+    const navigate = useNavigate()
 
     const { data: parcels = [],refetch } = useQuery({
         queryKey: ['parcels'],
@@ -38,6 +40,10 @@ const MyParcel = () => {
             }
         }
     };
+    // handle payment 
+    const handlePayment = async (id)=>{
+        navigate(`/dashboard/payment/${id}`)
+    }
 
     return (
         <div className="overflow-x-auto p-4">
@@ -79,8 +85,13 @@ const MyParcel = () => {
                                     {parcel.payment_status}
                                 </td>
                                 <td className='flex gap-2 items-center justify-center'>
+                                    {/* view */}
                                     <button className='btn btn-sm'>View</button>
-                                    <button disabled={parcel.payment_status === 'paid'} className='btn btn-sm bg-green-400'>Pay</button>
+                                    {/* pay */}
+                                    <button 
+                                    onClick={()=>handlePayment(parcel._id)}
+                                    disabled={parcel.payment_status === 'paid'} className='btn btn-sm bg-green-400'>Pay</button>
+                                    {/* delete */}
                                     <button onClick={()=> handleDelete(parcel._id)} className='btn btn-sm bg-red-600'>Delete</button>
 
 
