@@ -1,9 +1,10 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import useAuth from '../../../Hooks/useAuth';
 
 const PaymentForm = () => {
     const stripe = useStripe()
@@ -11,6 +12,8 @@ const PaymentForm = () => {
     const [err, setErr] = useState('')
     const { parcelId } = useParams()
     const axiosSecure = useAxiosSecure()
+    const { user } = useAuth()
+    const navigate = useNavigate()
     console.log(parcelId);
 
     const { data: parcel = {} } = useQuery({
@@ -64,13 +67,34 @@ const PaymentForm = () => {
             if (result.paymentIntent.status === 'succeeded') {
                 console.log('payment success');
                 setErr('')
-                // ✅ Show SweetAlert success
-                Swal.fire({
-                    title: 'Payment Successful 🎉',
-                    text: `You have successfully paid $${cost}`,
-                    icon: 'success',
-                    confirmButtonText: 'Okay',
-                });
+
+                // save parcel data to db 
+                const paymentdata = {
+                    parcelId: parcelId,
+                    email: user?.email,
+                    amount: cost,
+                    trxId: result.paymentIntent.id,
+                    paymentMethod: result.paymentIntent.payment_method_types,
+                    paidAt: new Date()
+                }
+                const response = await axiosSecure.post('/payments', paymentdata)
+                console.log(response.data.insertedId)
+                if (response.data.insertedId) {
+                    // Show detailed SweetAlert2
+                    Swal.fire({
+                        title: 'Payment Successful 🎉',
+                        html: `
+              <p><strong>Total Paid:</strong> $${cost}</p>
+              <p><strong>Payment Type:</strong> ${result.paymentIntent.payment_method_types}</p>
+              <p><strong>Transaction ID:</strong> ${result.paymentIntent.id}</p>
+             
+            `,
+                        icon: 'success',
+                        confirmButtonText: 'Okay',
+                    });
+                }
+                navigate('/dashboard/myParcels')
+
             }
         }
 

@@ -1,8 +1,16 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import ProfastLogo from '../Pages/Shared/Profast logo/ProfastLogo';
+import { FaBox, FaHistory, FaHome, FaUserEdit } from 'react-icons/fa';
+import { IoNavigateOutline } from "react-icons/io5";
+import { FaPersonRifle } from 'react-icons/fa6';
 
 const DashBoardLayout = () => {
+    const linkClasses = ({ isActive }) =>
+        `flex items-center gap-4 p-3 rounded-md transition-colors duration-300 ${isActive
+            ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-md'
+            : 'text-gray-700 hover:bg-gray-100'
+        }`;
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -27,20 +35,44 @@ const DashBoardLayout = () => {
                         </label>
                     </div>
                     <div className="mx-2 flex-1 px-2">Dashboard</div>
-                  
+
                 </div>
                 {/* Page content here */}
-                    <Outlet></Outlet>
-                   
+                <Outlet></Outlet>
+
             </div>
 
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
-                <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+                <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4 space-y-3">
                     {/* Sidebar content here */}
                     <ProfastLogo></ProfastLogo>
-                    <li><a>Home</a></li>
-                    <li><NavLink to='/dashboard/myParcels'>My Parcels</NavLink></li>
+
+                    <li>
+                        <NavLink to='/dashboard/home' className={linkClasses}>
+                            <FaHome className="text-xl" /> Home
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/dashboard/myParcels' className={linkClasses}>
+                            <FaBox className="text-xl" /> My Parcels
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/dashboard/paymentHistory' className={linkClasses}>
+                            <FaHistory className="text-xl" /> Payment History
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/dashboard/track' className={linkClasses}>
+                            <IoNavigateOutline className="text-xl" /> Track a Package
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/dashboard/profile' className={linkClasses}>
+                            <FaUserEdit className="text-xl" /> Update Profile
+                        </NavLink>
+                    </li>
                 </ul>
             </div>
         </div>
