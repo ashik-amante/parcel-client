@@ -1,11 +1,14 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import ProfastLogo from '../Pages/Shared/Profast logo/ProfastLogo';
-import { FaBox, FaClock, FaHistory, FaHome, FaMotorcycle, FaUserEdit } from 'react-icons/fa';
+import { FaBox, FaClock, FaHistory, FaHome, FaMotorcycle, FaUserEdit, FaUserShield } from 'react-icons/fa';
 import { IoNavigateOutline } from "react-icons/io5";
 import { FaPersonRifle } from 'react-icons/fa6';
+import useUserRole from '../Hooks/useUserRole';
 
 const DashBoardLayout = () => {
+    const { role, roleLoading } = useUserRole()
+    console.log(role);
     const linkClasses = ({ isActive }) =>
         `flex items-center gap-4 p-3 rounded-md transition-colors duration-300 ${isActive
             ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-md'
@@ -73,16 +76,27 @@ const DashBoardLayout = () => {
                             <FaUserEdit className="text-xl" /> Update Profile
                         </NavLink>
                     </li>
-                    <li>
-                        <NavLink to='/dashboard/activeRider' className={linkClasses}>
-                            <FaMotorcycle className="text-xl" /> Active Rider
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to='/dashboard/pendingRiders' className={linkClasses}>
-                            <FaClock className="text-xl" /> Pending Riders
-                        </NavLink>
-                    </li>
+
+                    {
+                        !roleLoading && role === 'admin' && <>
+                            <li>
+                                <NavLink to='/dashboard/activeRider' className={linkClasses}>
+                                    <FaMotorcycle className="text-xl" /> Active Rider
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to='/dashboard/pendingRiders' className={linkClasses}>
+                                    <FaClock className="text-xl" /> Pending Riders
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/makeAdmin">
+                                    <FaUserShield className="inline-block mr-2" />
+                                    Make Admin
+                                </NavLink>
+                            </li>
+                        </>
+                    }
                 </ul>
             </div>
         </div>

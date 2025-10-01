@@ -17,7 +17,7 @@ const PendingRiders = () => {
     },
   });
 
-  const handleStatusChange = async (riderId, status) => {
+  const handleStatusChange = async (riderId, status,email) => {
     const actionText = status === "approved" ? "Approve" : "Reject";
 
     const confirm = await Swal.fire({
@@ -31,7 +31,7 @@ const PendingRiders = () => {
     if (!confirm.isConfirmed) return;
 
     try {
-      await axiosSecure.patch(`/riders/${riderId}`, {status});
+      await axiosSecure.patch(`/riders/${riderId}`, {status,email});
       Swal.fire("Success", `Rider ${actionText.toLowerCase()}d.`, "success");
       queryClient.invalidateQueries(["riders"]); // refresh data
       setSelected(null);
@@ -91,7 +91,7 @@ const PendingRiders = () => {
                     </button>
                     <button
                       className="px-2 py-1 bg-green-500 text-white rounded"
-                      onClick={() => handleStatusChange(rider._id, "approved")}
+                      onClick={() => handleStatusChange(rider._id, "approved",rider.email)}
                     >
                       Approve
                     </button>
