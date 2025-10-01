@@ -3,12 +3,18 @@ import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import GoogleLogin from '../../../Components/Social login/GoogleLogin';
 import useAuth from '../../../Hooks/useAuth';
+import axios from 'axios'
+import { useState } from 'react';
+import useAxiosPublic from '../../../Hooks/useAxiosPublic';
 
 const Register = () => {
-    const {createUser} = useAuth()
+    const {createUser,updateUserProfile} = useAuth()
     const location = useLocation()
     const navigate = useNavigate()
+    const [profilePic,setProfilePic] = useState('')
     const from = location.state?.from || '/'
+    const axiosPublic = useAxiosPublic()
+
     const {
         register,
         handleSubmit,
@@ -21,11 +27,37 @@ const Register = () => {
         try{
             const result = await createUser(data.email,data.password)
             console.log(result.user);
+            // update user info n batabase 
+            const userInfo = {
+                email: data.email,
+                role: 'user',
+                createdAt : new Date().toISOString(),
+                lastLogIn : new Date().toISOString()
+            }
+            const res = await axiosPublic.post('/users',userInfo)
+            console.log(res.data);
+            // user profile info
+            const userProfile = {
+                displayName : data.name,
+                photoURL : profilePic
+            }
+            const updateRes = await updateUserProfile(userProfile)
+            console.log(updateRes);
             navigate(from)
         }catch(error){
             console.log(error);
         }
         
+    }
+    const handleChange = async e=>{
+        const image = e.target.files[0]
+        console.log(image);
+        const formdata = new FormData()
+        formdata.append('image', image)
+
+        const res = await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_API}`,formdata)
+        console.log(res.data.data.url);
+        setProfilePic(res.data.data.url)
     }
     return (
         <div>
@@ -42,7 +74,16 @@ const Register = () => {
                     type="text" 
                     name='name'
                     className="input w-full" placeholder="Name" />
-                    {errors.name?.type === 'required' && <p className='text-red-600'>name required</p> }
+                    {errors.name?.type === 'required' && <p className='text-red-600'>name is required</p> }
+
+                    {/* photo */}
+                    <label className="label">Photo</label>
+                    <input 
+                   onChange={handleChange}
+                    type="file" 
+                    name='name'
+                    className="input w-full" placeholder="Photo " />
+                   
 
                     {/* email */}
                     <label className="label">Email</label>

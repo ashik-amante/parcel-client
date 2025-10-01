@@ -27,14 +27,14 @@ const PaymentHistory = () => {
             <h1 className="text-2xl font-bold mb-4">Payment History</h1>
 
             <div className="overflow-x-auto">
-                <table className="table w-full border rounded-lg">
+                <table className="table w-full ">
                     <thead>
                         <tr className="bg-gray-100">
                             <th>#</th>
                             <th>Transaction ID</th>
                             <th>Email</th>
                             <th>Amount</th>
-                            <th>Payment Method</th>
+                            <th>Parcel id</th>
                             <th>Payment Time</th>
                             
                         </tr>
@@ -56,7 +56,7 @@ const PaymentHistory = () => {
                                     <td>{payment.trxId || payment.payment_intent_id || "-"}</td>
                                     <td>{payment.created_by || user.email}</td>
                                     <td>৳{payment.amount}</td>
-                                    <td>{payment.payment_method || "Card"}</td>
+                                    <td>{payment.parcelId|| "Card"}</td>
                                     <td>
                                         {new Date(payment.paidAt).toLocaleString()}
                                     </td>

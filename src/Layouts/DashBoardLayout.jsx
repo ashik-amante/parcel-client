@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import ProfastLogo from '../Pages/Shared/Profast logo/ProfastLogo';
-import { FaBox, FaHistory, FaHome, FaUserEdit } from 'react-icons/fa';
+import { FaBox, FaClock, FaHistory, FaHome, FaMotorcycle, FaUserEdit } from 'react-icons/fa';
 import { IoNavigateOutline } from "react-icons/io5";
 import { FaPersonRifle } from 'react-icons/fa6';
 
@@ -71,6 +71,16 @@ const DashBoardLayout = () => {
                     <li>
                         <NavLink to='/dashboard/profile' className={linkClasses}>
                             <FaUserEdit className="text-xl" /> Update Profile
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/dashboard/activeRider' className={linkClasses}>
+                            <FaMotorcycle className="text-xl" /> Active Rider
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/dashboard/pendingRiders' className={linkClasses}>
+                            <FaClock className="text-xl" /> Pending Riders
                         </NavLink>
                     </li>
                 </ul>

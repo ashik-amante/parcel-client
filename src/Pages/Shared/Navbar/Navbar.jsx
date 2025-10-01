@@ -15,6 +15,7 @@ const Navbar = () => {
         <li><NavLink>Home</NavLink></li>
         <li><NavLink to='/service'>Service</NavLink></li>
         <li><NavLink to='/sendParcel'>Send a parcel</NavLink></li>
+        <li><NavLink to='/beARider'>Be A Rider</NavLink></li>
         {
             user && <>
                 <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
@@ -36,9 +37,9 @@ const Navbar = () => {
                         {navItem}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">
+                <span className="btn btn-ghost text-xl">
                     <ProfastLogo></ProfastLogo>
-                </a>
+                </span>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">

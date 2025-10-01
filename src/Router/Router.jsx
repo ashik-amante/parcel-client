@@ -11,6 +11,10 @@ import DashBoardLayout from "../Layouts/DashBoardLayout";
 import MyParcel from "../Pages/Dashboard/my parcel/MyParcel";
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import PaymentHistory from "../Pages/Dashboard/paymnet history/PaymentHistory";
+import TrackParcel from "../Pages/Dashboard/Track parcel/TrackParcel";
+import BeARider from "../Pages/Dashboard/Be  a rider/BeARider";
+import PendingRiders from "../Pages/Dashboard/Pending Riders/PendingRiders";
+import ActiveRider from "../Pages/Dashboard/Active rider/ActiveRider";
 
 export const router = createBrowserRouter([
     {
@@ -30,6 +34,13 @@ export const router = createBrowserRouter([
                 path: 'sendParcel',
                 element: <PrivateRoute>
                     <SendParcel></SendParcel>
+                </PrivateRoute>,
+                loader: ()=> fetch('./district.json')
+            },
+            {
+                path: 'beARider',
+                element: <PrivateRoute>
+                    <BeARider></BeARider>
                 </PrivateRoute>,
                 loader: ()=> fetch('./district.json')
             }
@@ -64,6 +75,18 @@ export const router = createBrowserRouter([
             {
                 path: 'paymentHistory',
                 element: <PaymentHistory></PaymentHistory>
+            },
+            {
+                path: 'track',
+                element: <TrackParcel></TrackParcel>
+            },
+            {
+                path: 'pendingRiders',
+                element: <PendingRiders></PendingRiders>
+            },
+            {
+                path: 'activeRider',
+                element: <ActiveRider></ActiveRider>
             }
         ]
     }

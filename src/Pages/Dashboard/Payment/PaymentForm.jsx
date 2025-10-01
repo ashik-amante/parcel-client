@@ -93,7 +93,7 @@ const PaymentForm = () => {
                         confirmButtonText: 'Okay',
                     });
                 }
-                navigate('/dashboard/myParcels')
+                navigate('/dashboard/paymentHistory')
 
             }
         }

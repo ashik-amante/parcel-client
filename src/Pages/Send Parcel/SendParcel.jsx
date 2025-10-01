@@ -197,12 +197,14 @@ const SendParcel = () => {
                         <div className="grid grid-cols-1 gap-4">
                             <input {...register("sender_name", { required: true })} className="input input-bordered w-full" placeholder="Name" />
                             <input {...register("sender_contact", { required: true })} className="input input-bordered w-full" placeholder="Contact no" />
+                                    {/* region */}
                             <select {...register("sender_region", { required: true })} className="select select-bordered w-full">
                                 <option value="">Select Region</option>
                                 {uniqueRegions.map((region) => (
                                     <option key={region} value={region}>{region}</option>
                                 ))}
                             </select>
+
                             <select {...register("sender_center", { required: true })} className="select select-bordered w-full">
                                 <option value="">Select Service Center</option>
                                 {getDistrictsByRegion(senderRegion).map((district) => (
