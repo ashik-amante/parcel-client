@@ -1,13 +1,53 @@
 # React + Vite
-
+ZAPSHIFT – Parcel Delivery
+🌐 Live Site
 live site : https://parcel-ec2a9.web.app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React.js, Node.js, Express.js, MongoDB, JWT, Firebase Auth, Tailwind CSS, DaisyUI, Recharts
 
-Currently, two official plugins are available:
+🚀 Project Overview
+ZAPSHIFT is a full-stack home/office parcel delivery system designed for Users, Admins, and Riders, enabling seamless parcel booking, tracking, and delivery across Bangladesh.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Key Highlights:
+Role-based dashboards for Users, Admins, and Riders.
+Real-time parcel tracking and dynamic status updates.
+CRUD operations for parcels, users, and riders.
+Payment integration with unique tracking IDs and cost calculation.
+Responsive design with charts and notifications.
+Secure authentication using Firebase Auth & JWT.
+
+👤 User Roles
+User: Book parcels, track deliveries, manage payments, and leave reviews.
+Admin: Manage users, riders, service centers, and parcel delivery operations.
+Rider: Handle pickup, transit, and delivery, with real-time status updates and earnings.
+
+🛠 Technologies Used
+Frontend: React.js, Tailwind CSS, DaisyUI, Recharts
+Backend: Node.js, Express.js, MongoDB, Mongoose
+Authentication: JWT, Firebase Auth
+Deployment/Tools: Vercel, Firebse, 
+
+📂 Quick Setup
+
+Frontend:
+cd server
+npm install
+npm run dev
+
+Backend:
+cd server
+npm install
+npm run dev
+
+🔗 GitHub Repositories
+Client: https://github.com/ashik-amante/parcel-client
+Server: https://github.com/ashik-amante/parcel-server
+
+
+
+
+
+
 
 ## Expanding the ESLint configuration
 
