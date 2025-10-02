@@ -90,9 +90,15 @@ const DashBoardLayout = () => {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard/makeAdmin">
+                                <NavLink to="/dashboard/makeAdmin" className={linkClasses}>
                                     <FaUserShield className="inline-block mr-2" />
                                     Make Admin
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/assignRider" className={linkClasses}>
+                                    <FaMotorcycle className="inline-block mr-2" />
+                                    Assign Rider
                                 </NavLink>
                             </li>
                         </>
