@@ -42,13 +42,6 @@ ZAPSHIFT is a full-stack home/office parcel delivery system built for **Users, A
 - **Auth:** Firebase Authentication, JWT  
 - **Deployment:** Vercel /Firebase
 
-- ## 📂 Quick Setup
-
-### Frontend
-```bash
-cd client
-npm install
-npm start
 
 ---
 
