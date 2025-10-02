@@ -38,11 +38,21 @@ ZAPSHIFT is a full-stack home/office parcel delivery system built for **Users, A
 ## 🛠 Tech Stack
 
 - **Frontend:** React.js, Tailwind CSS, DaisyUI, Recharts  
-- **Backend:** Node.js, Express.js, MongoDB, Mongoose  
+- **Backend:** Node.js, Express.js, MongoDB  
 - **Auth:** Firebase Authentication, JWT  
-- **Deployment:** Vercel / Netlify / Render  
+- **Deployment:** Vercel /Firebase
+
+- ## 📂 Quick Setup
+
+### Frontend
+```bash
+cd client
+npm install
+npm start
 
 ---
+
+
 
 ## 🔗 Live Demo
 [Click Here to View Live Site](https://parcel-ec2a9.web.app)
