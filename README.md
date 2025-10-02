@@ -1,7 +1,5 @@
 # React + Vite
-ZAPSHIFT – Parcel Delivery
-🌐 Live Site
-live site : https://parcel-ec2a9.web.app
+
 
 # ZAPSHIFT – Parcel Delivery Dashboard
 
