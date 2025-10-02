@@ -50,7 +50,12 @@ cd client
 npm install
 npm start
 ```
-
+Backend
+```bash
+cd server
+npm install
+nodemon index.js
+```
 
 
 ## 🔗 Live Demo
