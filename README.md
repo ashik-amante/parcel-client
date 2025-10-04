@@ -35,7 +35,7 @@ Parcel is a full-stack home/office parcel delivery system built for **Users, Adm
 
 ---
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 - **Frontend:** React.js, Tailwind CSS, DaisyUI, Recharts  
 - **Backend:** Node.js, Express.js, MongoDB  
