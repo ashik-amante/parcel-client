@@ -1,7 +1,7 @@
 # React + Vite
 
 
-# ZAPSHIFT – Parcel Delivery Dashboard
+# Parcel – Parcel Delivery Dashboard
 
 **Live Site :https://parcel-ec2a9.web.app**  
 **React.js, Node.js, Express.js, MongoDB, JWT, Firebase Auth, Tailwind CSS, DaisyUI, Recharts**
