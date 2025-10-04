@@ -9,7 +9,7 @@
 ---
 
 ## 🚀 Project Overview
-ZAPSHIFT is a full-stack home/office parcel delivery system built for **Users, Admins, and Riders**, enabling seamless parcel booking, tracking, and delivery across Bangladesh.
+Parcel is a full-stack home/office parcel delivery system built for **Users, Admins, and Riders**, enabling seamless parcel booking, tracking, and delivery across Bangladesh.
 
 ---
 
