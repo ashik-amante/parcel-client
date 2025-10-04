@@ -10,6 +10,7 @@ const PaymentHistory = () => {
     // Fetch all parcels/payments for this user
     const { data: payments = [], isLoading } = useQuery({
         queryKey: ["payments"],
+        enabled: !!user?.email,
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/payments/${user?.email}`);
             return data;

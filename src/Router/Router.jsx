@@ -19,6 +19,11 @@ import MakeAdmin from "../Pages/Dashboard/Make admin/MakeAdmin";
 import AdminRoute from "./AdminRoute";
 import Forbidden from "../Pages/Forbidden/Forbidden";
 import AssignRider from "../Pages/Dashboard/Assign Rider/AssignRider";
+import RiderRoute from "./RiderRoute";
+import PendingDelivery from "../Pages/Dashboard/Pending Delivery/PendingDelivery";
+import CompletedDeliveries from "../Pages/Dashboard/Completed deliveries/CompletedDeliveries";
+import MyEarning from "../Pages/Dashboard/My Earning/MyEarning";
+import DashboardHome from "../Pages/Dashboard/Dashboard Home/DashBoardHome";
 
 export const router = createBrowserRouter([
     {
@@ -73,6 +78,10 @@ export const router = createBrowserRouter([
         element: <PrivateRoute><DashBoardLayout></DashBoardLayout></PrivateRoute>,
         children: [
             {
+                index: true,
+                Component : DashboardHome
+            },
+            {
                 path: 'myParcels',
                 element:<MyParcel></MyParcel>
             },
@@ -88,6 +97,21 @@ export const router = createBrowserRouter([
                 path: 'track',
                 element: <TrackParcel></TrackParcel>
             },
+            // rider route
+            {
+                path:'pending-deliveries',
+                element: <RiderRoute><PendingDelivery></PendingDelivery></RiderRoute>
+            },
+            {
+                path:'completed-deliveries',
+                element: <RiderRoute><CompletedDeliveries></CompletedDeliveries></RiderRoute>
+            },
+            {
+                path:'my-earnings',
+                element: <RiderRoute><MyEarning></MyEarning></RiderRoute>
+            },
+
+            // Admin route
             {
                 path: 'pendingRiders',
                 element: <AdminRoute><PendingRiders></PendingRiders></AdminRoute>

@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import useAuth from '../../../Hooks/useAuth';
+import useTrackingLogger from '../../../Hooks/useTrackingLogger';
 
 const PaymentForm = () => {
     const stripe = useStripe()
@@ -14,6 +15,7 @@ const PaymentForm = () => {
     const axiosSecure = useAxiosSecure()
     const { user } = useAuth()
     const navigate = useNavigate()
+    const { logTracking } = useTrackingLogger()
     console.log(parcelId);
 
     const { data: parcel = {} } = useQuery({
@@ -82,7 +84,7 @@ const PaymentForm = () => {
                 if (response.data.insertedId) {
                     // Show detailed SweetAlert2
                     Swal.fire({
-                        title: 'Payment Successful 🎉',
+                        title: 'Payment Successful ',
                         html: `
               <p><strong>Total Paid:</strong> $${cost}</p>
               <p><strong>Payment Type:</strong> ${result.paymentIntent.payment_method_types}</p>
@@ -93,6 +95,12 @@ const PaymentForm = () => {
                         confirmButtonText: 'Okay',
                     });
                 }
+                await logTracking({
+                    tracking_id: parcel.tracking_id,
+                    status: "payment_done ",
+                    details: `Payment by ${user?.displayName}`,
+                    updated_by: user?.email,
+                })
                 navigate('/dashboard/paymentHistory')
 
             }

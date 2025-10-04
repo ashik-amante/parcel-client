@@ -92,7 +92,7 @@ const MakeAdmin = () => {
                                     <td>{new Date(u.created_at).toLocaleDateString()}</td>
                                     <td>
                                         <span
-                                            className={`badge ${u.role === "admin" ? "badge-success" : "badge-ghost"
+                                            className={`badge font-bold ${u.role === "admin" ? "badge-success" : "badge-ghost"
                                                 }`}
                                         >
                                             {u.role || "user"}

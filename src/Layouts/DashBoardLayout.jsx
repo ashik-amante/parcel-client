@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import ProfastLogo from '../Pages/Shared/Profast logo/ProfastLogo';
-import { FaBox, FaClock, FaHistory, FaHome, FaMotorcycle, FaUserEdit, FaUserShield } from 'react-icons/fa';
+import { FaBox, FaCheckCircle, FaClock, FaHistory, FaHome, FaMotorcycle, FaTasks, FaUserEdit, FaUserShield, FaWallet } from 'react-icons/fa';
 import { IoNavigateOutline } from "react-icons/io5";
 import { FaPersonRifle } from 'react-icons/fa6';
 import useUserRole from '../Hooks/useUserRole';
@@ -76,6 +76,32 @@ const DashBoardLayout = () => {
                             <FaUserEdit className="text-xl" /> Update Profile
                         </NavLink>
                     </li>
+
+                    {/* Rider routes */}
+                    {
+                        !roleLoading && role === 'rider'  && <>
+                            <li>
+                                <NavLink to="/dashboard/pending-deliveries">
+                                    <FaTasks className="inline-block mr-2" />
+                                    Pending Deliveries
+                                </NavLink>
+                            </li>
+                             <li>
+                            <NavLink to="/dashboard/completed-deliveries">
+                                <FaCheckCircle className="inline-block mr-2" />
+                                Completed Deliveries
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/dashboard/my-earnings">
+                                <FaWallet className="inline-block mr-2" />
+                                My Earnings
+                            </NavLink>
+                        </li>
+                        </>
+                    }
+
+                    {/* Admin routes */}
 
                     {
                         !roleLoading && role === 'admin' && <>

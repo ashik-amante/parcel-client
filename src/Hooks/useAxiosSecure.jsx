@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router';
 
 const axiosSecure = axios.create({
     baseURL: 'http://localhost:5000'
+    // baseURL: 'https://parcel-server-phi.vercel.app'
+    // http://localhost:5000
 })
 const useAxiosSecure = () => {
     const { user,logOut } = useAuth()

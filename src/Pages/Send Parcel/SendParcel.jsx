@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
 import Swal from 'sweetalert2';
 import { useLoaderData, useNavigate } from "react-router";
-import useAxiosSecure  from '../../Hooks/useAxiosSecure'
+import useAxiosSecure from '../../Hooks/useAxiosSecure'
 import useAuth from "../../Hooks/useAuth";
+import useTrackingLogger from "../../Hooks/useTrackingLogger";
 
 
 
@@ -17,10 +18,11 @@ const SendParcel = () => {
     const axiosSecure = useAxiosSecure()
     const navigate = useNavigate()
     const serviceCenters = useLoaderData();
-    const {user} = useAuth()
+    const { user } = useAuth()
+    const { logTracking } = useTrackingLogger()
 
     const {
-        register,handleSubmit,watch,formState: {errors }, } = useForm();
+        register, handleSubmit, watch, formState: { errors }, } = useForm();
     // Extract unique regions
     const uniqueRegions = [...new Set(serviceCenters.map((w) => w.region))];
     // Get districts by region
@@ -90,6 +92,7 @@ const SendParcel = () => {
             },
         }).then((result) => {
             if (result.isConfirmed) {
+                const tracking_id = generateTrackingID()
                 const parcelData = {
                     ...data,
                     cost: totalCost,
@@ -97,17 +100,23 @@ const SendParcel = () => {
                     payment_status: 'unpaid',
                     delivery_status: 'not_collected',
                     creation_date: new Date().toISOString(),
-                    tracking_id: generateTrackingID(),
+                    tracking_id: tracking_id,
                 };
 
                 console.log("Ready for payment:", parcelData);
-                
+
                 axiosSecure.post('/parcels', parcelData)
-                    .then(res => {
+                    .then(async res => {
                         console.log(res.data);
                         if (res.data.insertedId) {
                             // TODO: redirect to a payment page 
                             navigate('/dashboard/myParcels')
+                            await logTracking({
+                                tracking_id : parcelData.tracking_id,
+                                status: "parcel_created ",
+                                details: `Picked up by ${user?.displayName}`,
+                                updated_by : user?.email,
+                            })
                             Swal.fire({
                                 title: "Redirecting...",
                                 text: "Proceeding to payment gateway.",
@@ -117,7 +126,7 @@ const SendParcel = () => {
                             });
                         }
                     })
-                
+
             }
         });
     };
@@ -195,9 +204,11 @@ const SendParcel = () => {
                     <div className="border p-4 rounded-xl shadow-md space-y-4">
                         <h3 className="font-semibold text-xl">Sender Info</h3>
                         <div className="grid grid-cols-1 gap-4">
-                            <input {...register("sender_name", { required: true })} className="input input-bordered w-full" placeholder="Name" />
+                            <input {...register("sender_name", { required: true })} className="input input-bordered w-full" 
+                            defaultValue={user?.displayName}
+                            placeholder="Name" />
                             <input {...register("sender_contact", { required: true })} className="input input-bordered w-full" placeholder="Contact no" />
-                                    {/* region */}
+                            {/* region */}
                             <select {...register("sender_region", { required: true })} className="select select-bordered w-full">
                                 <option value="">Select Region</option>
                                 {uniqueRegions.map((region) => (

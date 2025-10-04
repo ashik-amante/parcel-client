@@ -6,8 +6,8 @@ const ProfastLogo = () => {
     return (
         <Link to='/'>
             <div className='flex items-end'>
-                <img src={logo} alt="" />
-                <p className='text-3xl font-extrabold'> ProFast</p>
+                <img className='w-6' src={logo} alt="" />
+                <p className='lg:text-3xl font-extrabold '> Parcel</p>
             </div>
         </Link>
     );

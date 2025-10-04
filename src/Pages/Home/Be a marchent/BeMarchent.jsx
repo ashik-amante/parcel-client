@@ -27,7 +27,7 @@ const BeMarchent = () => {
               Become a Merchant
             </button>
             <button className="btn btn-outline rounded-full  border-white hover:bg-white hover:text-[#03373d] transition-colors duration-300 text-[#b5d95b]">
-              Earn with Profast Courier
+              Earn with Parcel
             </button>
           </div>
         </div>

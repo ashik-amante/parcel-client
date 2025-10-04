@@ -37,7 +37,7 @@ const Navbar = () => {
                         {navItem}
                     </ul>
                 </div>
-                <span className="btn btn-ghost text-xl">
+                <span className="btn btn-ghost text-xl pl-0">
                     <ProfastLogo></ProfastLogo>
                 </span>
             </div>
@@ -46,13 +46,13 @@ const Navbar = () => {
                     {navItem}
                 </ul>
             </div>
-            <div className="navbar-end gap-4">
+            <div className="navbar-end gap-2 lg:gap-4">
                 {
-                    user ? <button onClick={handleLogOut} className='btn btn-outline rounded-2xl'>Logout</button> : <Link className='btn btn-outline px-4' to='/login'>Login</Link>
+                    user ? <button onClick={handleLogOut} className='btn-xs sm:btn-sm md:btn btn-outline rounded-3xl'>Logout</button> : <Link className='btn btn-outlineg btn-sm md:btn px-3 sm:px-2 rounded-2xl' to='/login'>Login</Link>
                 }
 
                 <Link className='btn 
-                 px-4 rounded-2xl bg-[#caeb66] font-semibold' to='/'>Be a rider </Link>
+                 px-4 rounded-2xl bg-[#caeb66] font-semibold  ' to='/'>Be a rider </Link>
             </div>
         </div>
     );

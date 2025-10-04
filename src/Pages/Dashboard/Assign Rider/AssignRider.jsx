@@ -4,13 +4,18 @@ import { FaMotorcycle } from "react-icons/fa";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import useTrackingLogger from "../../../Hooks/useTrackingLogger";
+import useAuth from "../../../Hooks/useAuth";
 
 const AssignRider = () => {
     const axiosSecure = useAxiosSecure();
     const [selectedParcel, setSelectedParcel] = useState(null);
+    const [selectedRider, setSelectedRider] = useState(null);
     const [riders, setRiders] = useState([]);
     const [loadingRiders, setLoadingRiders] = useState(false);
     const queryClient = useQueryClient();
+    const { logTracking } = useTrackingLogger()
+    const {user} = useAuth()
 
     const { data: parcels = [], isLoading } = useQuery({
         queryKey: ["assignableParcels"],
@@ -27,15 +32,24 @@ const AssignRider = () => {
 
     const { mutateAsync: assignRider } = useMutation({
         mutationFn: async ({ parcelId, rider }) => {
+            setSelectedRider(rider)
             const res = await axiosSecure.patch(`/parcels/${parcelId}/assign`, {
                 riderId: rider._id,
                 riderName: rider.name,
+                riderEmail: rider.email,
             });
             return res.data;
         },
-        onSuccess: () => {
+        onSuccess:async () => {
             queryClient.invalidateQueries(["assignableParcels"]);
             Swal.fire("Success", "Rider assigned successfully!", "success");
+            // track rider assign
+            await logTracking({
+                tracking_id: selectedParcel.tracking_id,
+                status: "rider_assigned ",
+                details: `Assigned to ${selectedRider?.name}`,
+                updated_by: user?.email,
+            })
             document.getElementById("assignModal").close();
         },
         onError: () => {
@@ -110,7 +124,7 @@ const AssignRider = () => {
                             ))}
                         </tbody>
                     </table>
-                    {/* 🛵 Assign Rider Modal */}
+                    {/* Assign Rider Modal mattha nosto */}
                     <dialog id="assignModal" className="modal">
                         <div className="modal-box max-w-2xl">
                             <h3 className="text-lg font-bold mb-3">
@@ -130,6 +144,7 @@ const AssignRider = () => {
                                                 <th>Name</th>
                                                 <th>Phone</th>
                                                 <th>Bike Info</th>
+                                                <th>Rider District</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -139,8 +154,9 @@ const AssignRider = () => {
                                                     <td>{rider.name}</td>
                                                     <td>{rider.phone}</td>
                                                     <td>
-                                                        {rider.bike_brand} - {rider.bike_registration}
+                                                        {rider.bikeBrand} - {rider.bikeRegNo}
                                                     </td>
+                                                    <td>{rider.district}</td>
                                                     <td>
                                                         <button
                                                             onClick={() =>
