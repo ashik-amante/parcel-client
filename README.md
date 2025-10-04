@@ -6,7 +6,7 @@
 **Live Site :https://parcel-ec2a9.web.app**  
 **React.js, Node.js, Express.js, MongoDB, JWT, Firebase Auth, Tailwind CSS, DaisyUI, Recharts**
 
-- Visit as a admin : email : tobih22012@inilas.com
+- Visit as an admin : email : tobih22012@inilas.com
                   pass : 123456
 - Visit as a rider : email : sehojek508@inilas.com
                   pass : 123456
